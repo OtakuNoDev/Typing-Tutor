@@ -1,98 +1,124 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const textContainer = document.getElementById("sentence");
-    const inputBox = document.getElementById("input-box");
-    const timerDisplay = document.getElementById("timer");
-    const accuracyDisplay = document.getElementById("accuracy");
-    const speedDisplay = document.getElementById("speed");
-    const resultSection = document.getElementById("result");
-    const finalSpeed = document.getElementById("final-speed");
-    const finalAccuracy = document.getElementById("final-accuracy");
-    const restartBtn = document.getElementById("restart");
+const letterSets = [
+    ["E", "N", "I", "R", "A", "L"],
+    ["T", "O", "P", "C", "M", "S"],
+    ["G", "H", "D", "B", "U", "V"],
+    ["K", "J", "X", "Z", "Q", "Y"]
+];
 
-    const sentences = [
-        "Typing fast is a useful skill.",
-        "The quick brown fox jumps over the lazy dog.",
-        "Practice makes a person perfect in typing.",
-        "JavaScript is a powerful programming language.",
-        "Accuracy is more important than speed.",
-        "Coding requires patience and consistency."
-    ];
+const words = {
+    "ENIRAL": [
+        "ear air ran lean line rail near real alien linear earlier",
+        "reliant reliance alliance learning linear realism realism"
+    ],
+    "TOPCMS": [
+        "top opt stop post cost spot comp scout stomp optics",
+        "composite compost complicate computation compromise completion"
+    ],
+    "GHDBUV": [
+        "bud hug bug hub dug duo bivouac vivid debug buildup",
+        "background biodiversity biodegradable unbelievable uninhabitable"
+    ],
+    "KJXZQY": [
+        "jay yak zip jinx quiz quay zany quixy kayak jazzy",
+        "jackpot juxtapose jeopardize quicksilver oxygenize quizzical"
+    ]
+};
 
-    let currentSentence = "";
-    let typedCharacters = 0;
-    let errors = 0;
-    let startTime = null;
-    let inputLocked = false; // Prevents multiple changes
+let currentSetIndex = 0;
+let currentWords = [];
+let wordIndex = 0;
+let letterIndex = 0;
+let correctCount = 0;
+let totalCount = 0;
+let startTime = Date.now();
 
-    function setNewSentence() {
-        inputLocked = false; // Unlock input for the next sentence
-        currentSentence = sentences[Math.floor(Math.random() * sentences.length)];
-        textContainer.innerHTML = "";
-        currentSentence.split("").forEach(char => {
-            const span = document.createElement("span");
-            span.innerText = char;
-            textContainer.appendChild(span);
-        });
+const wordDisplay = document.getElementById("word-display");
+const inputBox = document.getElementById("input-box");
+const speedDisplay = document.getElementById("speed");
+const accuracyDisplay = document.getElementById("accuracy");
+const restartButton = document.getElementById("restart");
+
+function loadNewSet() {
+    let letters = letterSets[currentSetIndex];
+    currentWords = words[letters.join("")] || [];
+    wordIndex = 0;
+    letterIndex = 0;
+    displayNextWord();
+}
+
+function displayNextWord() {
+    if (wordIndex < currentWords.length) {
+        highlightText(currentWords[wordIndex], 0);
+    } else {
+        currentSetIndex = (currentSetIndex + 1) % letterSets.length;
+        loadNewSet();
+    }
+}
+
+function highlightText(word, index) {
+    let highlighted = "";
+
+    for (let i = 0; i < word.length; i++) {
+        if (i < index) {
+            highlighted += `<span class="correct">${word[i]}</span>`;
+        } else if (i === index) {
+            highlighted += `<span class="current">${word[i]}</span>`;
+        } else {
+            highlighted += `<span>${word[i]}</span>`;
+        }
+    }
+
+    wordDisplay.innerHTML = highlighted;
+}
+
+inputBox.addEventListener("input", function () {
+    let typed = inputBox.value;
+    let target = currentWords[wordIndex];
+
+    if (typed === target) {
+        correctCount += target.length;
+        totalCount += target.length;
+        wordIndex++;
+        letterIndex = 0;
         inputBox.value = "";
-        inputBox.focus();
-        typedCharacters = 0;
-        errors = 0;
-        startTime = null;
-        updateStats();
+        displayNextWord();
+        return;
     }
 
-    function updateStats() {
-        const elapsedTime = startTime ? (Date.now() - startTime) / 1000 : 0;
-        const wpm = elapsedTime > 0 ? Math.round((typedCharacters / 5) / (elapsedTime / 60)) : 0;
-        const accuracy = typedCharacters > 0 ? Math.max(0, Math.round(((typedCharacters - errors) / typedCharacters) * 100)) : 100;
-        
-        timerDisplay.innerText = `Time: ${Math.floor(elapsedTime)}s`;
-        speedDisplay.innerText = `Speed: ${wpm} WPM`;
-        accuracyDisplay.innerText = `Accuracy: ${accuracy}%`;
-    }
+    totalCount++;
 
-    inputBox.addEventListener("input", function () {
-        if (!startTime) startTime = Date.now();
-        if (inputLocked) return; // Prevents multiple sentence changes
-
-        const inputValue = inputBox.value;
-        const spans = textContainer.querySelectorAll("span");
-
-        typedCharacters = inputValue.length;
-        errors = 0;
-
-        for (let i = 0; i < spans.length; i++) {
-            if (i < inputValue.length) {
-                if (inputValue[i] === currentSentence[i]) {
-                    spans[i].style.color = "limegreen";
-                    spans[i].style.fontWeight = "bold";
-                } else {
-                    spans[i].style.color = "red";
-                    spans[i].style.fontWeight = "bold";
-                    errors++;
-                }
+    let highlighted = "";
+    for (let i = 0; i < target.length; i++) {
+        if (i < typed.length) {
+            if (typed[i] === target[i]) {
+                highlighted += `<span class="correct">${target[i]}</span>`;
             } else {
-                spans[i].style.color = "#fff";
-                spans[i].style.fontWeight = "normal";
+                highlighted += `<span class="wrong">${target[i]}</span>`;
             }
+        } else if (i === typed.length) {
+            highlighted += `<span class="current">${target[i]}</span>`;
+        } else {
+            highlighted += `<span>${target[i]}</span>`;
         }
-        updateStats();
+    }
 
-        if (inputValue.length >= currentSentence.length) {
-            inputLocked = true; // Prevents re-triggering
-            setTimeout(setNewSentence, 1000);
-        }
-    });
+    wordDisplay.innerHTML = highlighted;
 
-    inputBox.addEventListener("keydown", function (event) {
-        if (event.key === "Backspace") {
-            typedCharacters = Math.max(0, typedCharacters - 1);
-        }
-    });
+    let elapsedTime = (Date.now() - startTime) / 60000;
+    let speed = Math.round((correctCount / elapsedTime) || 0);
+    let accuracy = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 100;
 
-    restartBtn.addEventListener("click", function () {
-        setNewSentence();
-    });
-
-    setNewSentence();
+    speedDisplay.textContent = `${speed} WPM`;
+    accuracyDisplay.textContent = `${accuracy}%`;
 });
+
+restartButton.addEventListener("click", function () {
+    currentSetIndex = 0;
+    correctCount = 0;
+    totalCount = 0;
+    startTime = Date.now();
+    loadNewSet();
+    inputBox.value = "";
+});
+
+loadNewSet();

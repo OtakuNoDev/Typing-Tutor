@@ -5,50 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typing Practice</title>
     <link rel="stylesheet" href="practice.css">
-    <script defer src="practice.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Navigation Bar (Corrected Order) -->
-    <nav>
+    <nav class="menu-bar">
         <ul>
             <li><a href="index.html">🏠 Home</a></li>
-            <li><a href="typingtest.html">⌨ Typing Test</a></li>
-            <li><a href="practice.html" class="active">📖 Practice</a></li>
+            <li><a href="typingtest.html" class="active">⌨ Typing Test</a></li>
+            <li><a href="practice.html">📖 Practice</a></li>
             <li><a href="multiplayer.html">🎮 Multiplayer</a></li>
             <li><a href="profile.html">👤 Profile</a></li>
             <li><a href="signin.html">🔑 Sign In</a></li>
         </ul>
     </nav>
 
-    <!-- Typing Area -->
     <div class="container">
-        <h1>🖊 Typing Practice</h1>
-
-        <div class="stats">
-            <p id="timer">Time: 0s</p>
-            <p id="accuracy">Accuracy: 100%</p>
-            <p id="speed">Speed: 0 WPM</p>
+        <h2>Typing Practice</h2>
+        <div id="metrics">
+            <p>Speed: <span id="speed">0 WPM</span> | Accuracy: <span id="accuracy">100%</span></p>
         </div>
-
-        <div id="text-container">
-            <p id="sentence"></p>
+        
+        <div id="word-display-container">
+            <p id="word-display"></p>
         </div>
-
+        
         <input type="text" id="input-box" placeholder="Start typing here..." autofocus>
-
-        <!-- On-screen Keyboard -->
-        <div id="keyboard-container"></div>
-
-        <!-- Results Section -->
-        <div id="result" class="hidden">
-            <h2>📊 Results</h2>
-            <p id="final-speed"></p>
-            <p id="final-accuracy"></p>
-            <button id="restart">🔄 Try Again</button>
-        </div>
+        
+        <button id="restart">Restart</button>
     </div>
 
+    <script src="practice.js"></script>
 </body>
 </html>

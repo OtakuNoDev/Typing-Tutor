@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="typingtest.css">
+    <script defer src="typingtest.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Bar (Corrected Order) -->
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="typingtest.html" class="active">⌨ Typing Test</a></li>
+            <li><a href="practice.html">📖 Practice</a></li>
+            <li><a href="multiplayer.html">🎮 Multiplayer</a></li>
+            <li><a href="profile.html">👤 Profile</a></li>
+            <li><a href="signin.html">🔑 Sign In</a></li>
+        </ul>
+    </nav>
+
+    <!-- Typing Area -->
+    <div class="container">
+        <h1>🖊 Typing Test</h1>
+
+        <div class="stats">
+            <p id="timer">Time: 0s</p>
+            <p id="accuracy">Accuracy: 100%</p>
+            <p id="speed">Speed: 0 WPM</p>
+        </div>
+
+        <div id="text-container">
+            <p id="sentence"></p>
+        </div>
+
+        <input type="text" id="input-box" placeholder="Start typing here..." autofocus>
+
+        <!-- On-screen Keyboard -->
+        <div id="keyboard-container"></div>
+
+        <!-- Results Section -->
+        <div id="result" class="hidden">
+            <h2>📊 Results</h2>
+            <p id="final-speed"></p>
+            <p id="final-accuracy"></p>
+            <button id="restart">🔄 Try Again</button>
+        </div>
+    </div>
+
+</body>
+</html>
