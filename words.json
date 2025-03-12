@@ -1,0 +1,5 @@
+{
+    "easy": ["cat", "dog", "sun", "moon"],
+    "medium": ["keyboard", "monitor", "laptop", "javascript"],
+    "hard": ["synchronization", "asynchronous", "optimization", "multithreading"]
+}
