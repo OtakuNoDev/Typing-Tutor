@@ -1,0 +1,160 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f0f0; /* Lighter light mode */
+    color: #444;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #1a1a1a; /* Darker dark mode */
+    color: #ddd;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    transition: transform 0.2s; /* Animation */
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1); /* Animation */
+}
+
+#theme-toggle i {
+    font-size: 24px;
+    color: #666; /* More visible icon color */
+    transition: color 0.3s; /* Smooth icon color transition */
+}
+
+body.dark-mode #theme-toggle i {
+    color: #aaa; /* Dark mode icon color */
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in-container {
+    background-color: #e9e9e9; /* Lighter container */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    width: 300px;
+    transition: box-shadow 0.3s; /* Animation */
+}
+
+.sign-in-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Animation */
+}
+
+body.dark-mode .sign-in-container {
+    background-color: #262626; /* Darker container */
+}
+
+.sign-in-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333; /* Darker heading */
+    transition: color 0.3s;
+}
+
+body.dark-mode .sign-in-container h2 {
+    color: #eee;
+}
+
+.sign-in-container input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc; /* Softer border */
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.sign-in-container input:focus {
+    border-color: #007bff; /* Highlight on focus */
+}
+
+.sign-in-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Animation */
+}
+
+.sign-in-container button:hover {
+    background-color: #0056b3;
+    transform: scale(1.02); /* Animation */
+}
+
+.sign-in-container p {
+    text-align: center;
+    margin-top: 1rem;
+    color: #555; /* Darker text */
+    transition: color 0.3s;
+}
+
+body.dark-mode .sign-in-container p {
+    color: #aaa;
+}
+
+.social-auth {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.social-auth a {
+    display: block;
+    padding: 10px;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    color: white;
+    transition: opacity 0.2s; /* Animation */
+}
+
+.social-auth a:hover {
+    opacity: 0.8; /* Animation */
+}
+
+.google-signin {
+    background-color: #db4437;
+}
+
+.outlook-signin {
+    background-color: #0072c6;
+}
+
+.email-signin {
+    background-color: #333;
+}
+
+/* Add hover effects for social buttons */
+.google-signin:hover {
+    background-color: #c2382c;
+}
+
+.outlook-signin:hover {
+    background-color: #005aa3;
+}
+
+.email-signin:hover {
+    background-color: #222;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+   <!-- Navigation Bar (Corrected Order) -->
+<nav>
+    <ul>
+        <li><a href="index.html">🏠 Home</a></li>
+        <li><a href="typingtest.html" class="active">⌨ Typing Test</a></li>
+        <li><a href="practice.html">📖 Practice</a></li>
+        <li><a href="profile.html">👤 Profile</a></li>
+        <li><a href="signin.html">🔑 Sign In</a></li>
+    </ul>
+</nav>
+
+    <div class="profile-container">
+        <h2>Profile</h2>
+        <form id="profile-form">
+            <label>Username</label>
+            <input type="text" id="username">
+
+            <label>Email</label>
+            <input type="email" id="email">
+
+            <label>First Name</label>
+            <input type="text" id="first-name">
+
+            <label>Last Name</label>
+            <input type="text" id="last-name">
+
+            <h3>Personal Goals</h3>
+            <label>Daily Goal</label>
+            <select id="daily-goal">
+                <option value="15 minutes">15 minutes</option>
+                <option value="30 minutes">30 minutes</option>
+                <option value="1 hour">1 hour</option>
+            </select>
+
+            <label>Weekly Goal</label>
+            <select id="weekly-goal">
+                <option value="1 hour">1 hour</option>
+                <option value="3 hours">3 hours</option>
+                <option value="5 hours">5 hours</option>
+            </select>
+
+            <label>First Day of Week</label>
+            <select id="first-day">
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+            </select>
+
+            <button type="button" id="save-changes">Save Changes</button>
+        </form>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>
