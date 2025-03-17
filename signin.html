@@ -11,38 +11,43 @@
 </head>
 
 <body>
-    <header>
-        <h1>Typing Tutor</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">🏠 Home</a></li>
-                <li><a href="typingtest.html">⌨ Typing Test</a></li>
-                <li><a href="practice.html">📖 Practice</a></li>
-                <li><a href="signin.html">🔑 Sign In</a></li>
-                <li><a href="profile.html">👤 Profile</a></li>
-            </ul>
-        </nav>
-        <button id="theme-toggle">
-            <i class="fas fa-sun" id="theme-icon"></i>
-        </button>
-    </header>
-    <main>
-        <div class="sign-in-container">
-            <h2>Sign In</h2>
-            <form id="signin-form">
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">Continue</button>
-            </form>
-            <p>Don't have an account? <a href="#">Sign Up</a></p>
-            <div class="social-auth">
-                <a href="#" class="google-signin">Sign in with Google</a>
-                <a href="#" class="outlook-signin">Sign in with Outlook</a>
-                <a href="#" class="email-signin">Sign in with Email</a>
-            </div>
+
+<!-- Typing Tutor Heading -->
+<h1 style="position: absolute; top: 10px; left: 20px; font-size: 24px; font-family: Arial, sans-serif; margin: 0;">Typing Tutor</h1>
+
+<header style="margin-top: 40px;">
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="typingtest.html">⌨ Typing Test</a></li>
+            <li><a href="practice.html">📖 Practice</a></li>
+            <li><a href="profile.html">👤 Profile</a></li>
+            <li><a href="signin.html">🔑 Sign In</a></li>
+        </ul>
+    </nav>
+    <button id="theme-toggle">
+        <i class="fas fa-sun" id="theme-icon"></i>
+    </button>
+</header>
+
+<main>
+    <div class="sign-in-container">
+        <h2>Sign In</h2>
+        <form id="signin-form">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Continue</button>
+        </form>
+        <p>Don't have an account? <a href="#">Sign Up</a></p>
+        <div class="social-auth">
+            <a href="#" class="google-signin">Sign in with Google</a>
+            <a href="#" class="outlook-signin">Sign in with Outlook</a>
+            <a href="#" class="email-signin">Sign in with Email</a>
         </div>
-    </main>
-    <script src="signin.js"></script>
+    </div>
+</main>
+
+<script src="signin.js"></script>
 </body>
 
 </html>

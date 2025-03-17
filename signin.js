@@ -41,3 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.outlook-signin').href = '#outlook-signin';
     document.querySelector('.email-signin').href = '#email-signin';
 });
+
+document.getElementById('google-signin').addEventListener('click', function() {
+    // Redirect to Google OAuth login
+    window.location.href = 'https://accounts.google.com/o/oauth2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=token&scope=email profile';
+});
+
+document.getElementById('outlook-signin').addEventListener('click', function() {
+    // Redirect to Microsoft OAuth login
+    window.location.href = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=YOUR_MICROSOFT_CLIENT_ID&response_type=token&redirect_uri=YOUR_REDIRECT_URI&scope=openid profile email';
+});
