@@ -1,3 +1,4 @@
+// JS FILE: practice.js
 const letterSets = [
     ["E", "N", "I", "R", "A", "L"],
     ["T", "O", "P", "C", "M", "S"],
@@ -7,20 +8,32 @@ const letterSets = [
 
 const words = {
     "ENIRAL": [
-        "ear air ran lean line rail near real alien linear earlier",
-        "reliant reliance alliance learning linear realism realism"
+        "The feline reclined gracefully on the woven mat, basking in the golden sunlight.",
+        "The bat deftly navigated through the dense foliage and comprehended its surroundings with echolocation.",
+        "The inquisitive rodent swiftly consumed the cleverly concealed lure, unaware of the impending consequence.",
+        "The enigmatic alien observed Earth’s intricate societies, pondering their complex behaviors.",
+        "Linear progression in learning is crucial for developing critical analytical skills and innovation."
     ],
     "TOPCMS": [
-        "top opt stop post cost spot comp scout stomp optics",
-        "composite compost complicate computation compromise completion"
+        "The vigilant canine trotted confidently through the dense mist, sensing unseen movements around it.",
+        "The sturdy timber, once a towering tree, lay partially submerged in the vast and treacherous marshland.",
+        "The amphibian perched delicately on the decaying timber, blending seamlessly into the mossy surroundings.",
+        "The expert scout stomped on the freshly decomposed compost, ensuring proper aeration for microbial activity.",
+        "Optics and computation intertwine in the world of artificial intelligence, driving innovation in visual processing."
     ],
     "GHDBUV": [
-        "bud hug bug hub dug duo bivouac vivid debug buildup",
-        "background biodiversity biodegradable unbelievable uninhabitable"
+        "The diligent insect meticulously burrowed into the thick carpet fibers, creating an elaborate network of tunnels.",
+        "The porcelain cup was delicately placed on the intricately designed pitcher, balancing with remarkable precision.",
+        "The heartfelt embrace was warm and reassuring, a silent promise of unwavering support and companionship.",
+        "The tiny bug dug a secure hub within the damp soil, carefully crafting its subterranean refuge.",
+        "Biodiversity thrives in ecosystems where environmental balance is meticulously maintained, preserving nature’s vivid beauty."
     ],
     "KJXZQY": [
-        "jay yak zip jinx quiz quay zany quixy kayak jazzy",
-        "jackpot juxtapose jeopardize quicksilver oxygenize quizzical"
+        "The cunning vulpine, hidden within the reinforced container, waited patiently for the perfect moment to escape.",
+        "The bovine, adorned with vibrantly patterned hosiery, paraded through the barnyard with an air of elegance.",
+        "The magnificent salmon, battling relentless currents, navigated its way back to the very container it once inhabited.",
+        "The mischievous jay and the restless yak conspired to jinx the ambitious scholar’s ultimate quiz performance.",
+        "Juxtapose the glittering jackpot with the mercurial quicksilver, and you reveal the fleeting nature of fortune."
     ]
 };
 
@@ -30,12 +43,9 @@ let wordIndex = 0;
 let letterIndex = 0;
 let correctCount = 0;
 let totalCount = 0;
-let startTime = Date.now();
 
 const wordDisplay = document.getElementById("word-display");
 const inputBox = document.getElementById("input-box");
-const speedDisplay = document.getElementById("speed");
-const accuracyDisplay = document.getElementById("accuracy");
 const restartButton = document.getElementById("restart");
 
 function loadNewSet() {
@@ -92,6 +102,7 @@ inputBox.addEventListener("input", function () {
         if (i < typed.length) {
             if (typed[i] === target[i]) {
                 highlighted += `<span class="correct">${target[i]}</span>`;
+                correctCount++;
             } else {
                 highlighted += `<span class="wrong">${target[i]}</span>`;
             }
@@ -103,20 +114,12 @@ inputBox.addEventListener("input", function () {
     }
 
     wordDisplay.innerHTML = highlighted;
-
-    let elapsedTime = (Date.now() - startTime) / 60000;
-    let speed = Math.round((correctCount / elapsedTime) || 0);
-    let accuracy = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 100;
-
-    speedDisplay.textContent = `${speed} WPM`;
-    accuracyDisplay.textContent = `${accuracy}%`;
 });
 
 restartButton.addEventListener("click", function () {
     currentSetIndex = 0;
     correctCount = 0;
     totalCount = 0;
-    startTime = Date.now();
     loadNewSet();
     inputBox.value = "";
 });

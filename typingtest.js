@@ -19,12 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     let currentSentence = "";
-    let typedCharacters = 0;
-    let errors = 0;
+    let totalTypedCharacters = 0;
+    let totalErrors = 0;
+    let sentenceCount = 0;
     let startTime = null;
     let inputLocked = false;
 
     function setNewSentence() {
+        if (sentenceCount >= 5) {
+            showFinalResults();
+            return;
+        }
+
         inputLocked = false;
         currentSentence = sentences[Math.floor(Math.random() * sentences.length)];
         textContainer.innerHTML = "";
@@ -33,22 +39,29 @@ document.addEventListener("DOMContentLoaded", function () {
             span.innerText = char;
             textContainer.appendChild(span);
         });
+
         inputBox.value = "";
         inputBox.focus();
-        typedCharacters = 0;
-        errors = 0;
-        startTime = null;
-        updateStats();
     }
 
     function updateStats() {
         const elapsedTime = startTime ? (Date.now() - startTime) / 1000 : 0;
-        const wpm = elapsedTime > 0 ? Math.round((typedCharacters / 5) / (elapsedTime / 60)) : 0;
-        const accuracy = typedCharacters > 0 ? Math.max(0, Math.round(((typedCharacters - errors) / typedCharacters) * 100)) : 100;
-        
+        const wpm = elapsedTime > 0 ? Math.round((totalTypedCharacters / 5) / (elapsedTime / 60)) : 0;
+        const accuracy = totalTypedCharacters > 0 ? Math.max(0, Math.round(((totalTypedCharacters - totalErrors) / totalTypedCharacters) * 100)) : 100;
+
         timerDisplay.innerText = `Time: ${Math.floor(elapsedTime)}s`;
         speedDisplay.innerText = `Speed: ${wpm} WPM`;
         accuracyDisplay.innerText = `Accuracy: ${accuracy}%`;
+    }
+
+    function showFinalResults() {
+        const totalTime = (Date.now() - startTime) / 1000;
+        const finalWPM = Math.round((totalTypedCharacters / 5) / (totalTime / 60));
+        const finalAcc = totalTypedCharacters > 0 ? Math.max(0, Math.round(((totalTypedCharacters - totalErrors) / totalTypedCharacters) * 100)) : 100;
+        
+        resultSection.style.display = "block";
+        finalSpeed.innerText = `Final Speed: ${finalWPM} WPM`;
+        finalAccuracy.innerText = `Final Accuracy: ${finalAcc}%`;
     }
 
     inputBox.addEventListener("input", function () {
@@ -57,49 +70,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const inputValue = inputBox.value;
         const spans = textContainer.querySelectorAll("span");
-
-        typedCharacters = inputValue.length;
-        errors = 0;
+        let errors = 0;
 
         for (let i = 0; i < spans.length; i++) {
             if (i < inputValue.length) {
                 if (inputValue[i] === currentSentence[i]) {
                     spans[i].style.color = "limegreen";
-                    spans[i].style.fontWeight = "bold";
-                    spans[i].style.textDecoration = "none";
                 } else {
                     spans[i].style.color = "red";
-                    spans[i].style.fontWeight = "bold";
-                    spans[i].style.textDecoration = "none";
                     errors++;
                 }
             } else {
                 spans[i].style.color = "#fff";
-                spans[i].style.fontWeight = "normal";
-                spans[i].style.textDecoration = "none";
             }
         }
 
-        if (inputValue.length < spans.length) {
-            spans[inputValue.length].style.textDecoration = "underline";
-            spans[inputValue.length].style.color = "yellow";
-        }
-
+        totalTypedCharacters += 1;
+        totalErrors += errors;
         updateStats();
 
         if (inputValue.length >= currentSentence.length) {
             inputLocked = true;
-            setNewSentence(); // Instant sentence change
-        }
-    });
-
-    inputBox.addEventListener("keydown", function (event) {
-        if (event.key === "Backspace") {
-            typedCharacters = Math.max(0, typedCharacters - 1);
+            sentenceCount++;
+            setTimeout(setNewSentence, 500);
         }
     });
 
     restartBtn.addEventListener("click", function () {
+        totalTypedCharacters = 0;
+        totalErrors = 0;
+        sentenceCount = 0;
+        startTime = null;
+        inputLocked = false;
+        timerDisplay.innerText = "Time: 0s";
+        speedDisplay.innerText = "Speed: 0 WPM";
+        accuracyDisplay.innerText = "Accuracy: 0%";
+        resultSection.style.display = "none";
         setNewSentence();
     });
 

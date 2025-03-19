@@ -19,11 +19,6 @@ h2 {
     font-size: 24px;
 }
 
-#metrics {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
 #word-display-container {
     font-size: 2.5rem;
     font-weight: bold;
@@ -34,12 +29,14 @@ h2 {
 }
 
 #input-box {
-    width: 100%;
-    padding: 10px;
+    width: 80%; /* Adjust width to 80% for better padding */
+    padding: 15px; /* Increase padding for better spacing */
     font-size: 18px;
     border: none;
     border-radius: 5px;
     text-align: center;
+    margin: 0 auto; /* Center the input box */
+    display: block; /* Ensure the input box is a block element */
 }
 
 #restart {
